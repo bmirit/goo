@@ -61,8 +61,9 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.17.1-arm64-darwin)
-    ffi (1.17.1-x86_64-linux-gnu)
+    ffi (1.17.2-aarch64-linux-gnu)
+    ffi (1.17.2-arm64-darwin)
+    ffi (1.17.2-x86_64-linux-gnu)
     htmlentities (4.3.4)
     http-accept (1.7.0)
     http-cookie (1.0.8)
@@ -161,11 +162,12 @@ GEM
       date
     timeout (0.4.3)
     tzinfo (0.3.62)
-    uri (1.0.2)
+    uri (1.1.1)
     uuid (2.3.9)
       macaddr (~> 1.0)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-24
   x86_64-linux
 

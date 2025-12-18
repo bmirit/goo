@@ -1,8 +1,34 @@
 services:
+  ruby:
+    build:
+      context: .
+      args:
+        RUBY_VERSION: '3.1'
+    image: ontologies_ld-dev:0.0.4
+    # environment:
+      # GOO_PORT: 6666
+      # REDIS_HOST: redis-ut
+      # REDIS_PORT: 55444
+      # SEARCH_SERVER_URL: 'http://solr-ut:8983/solr'
+    volumes:
+      - bundle:/usr/local/bundle
+      - .:/app
+    profiles:
+      - fs
+    network_mode: "host"
+    depends_on:
+      4store-ut:
+        condition: service_started
+      solr-ut:
+        condition: service_started
+      redis-ut:
+        condition: service_started
+
   redis-ut:
     image: redis
-    ports:
-      - 6379:6379
+    network_mode: "host"
+    # ports:
+      # - 6379:6379
     healthcheck:
       test: redis-cli ping
       interval: 1s
@@ -11,8 +37,9 @@ services:
 
   solr-ut:
     image: solr:8.11.2
-    ports:
-      - 8983:8983
+    network_mode: "host"
+    # ports:
+      # - 8983:8983
     command: bin/solr start -cloud -f
 
   agraph-ut:
@@ -46,14 +73,16 @@ services:
   4store-ut:
     image: bde2020/4store
     platform: linux/amd64
-    ports:
-      - 9000:9000
+    network_mode: "host"
+    # ports:
+      # - 9000:9000
     command: >
       bash -c "4s-backend-setup --segments 4 ontoportal_kb
       && 4s-backend ontoportal_kb
       && 4s-httpd -D -s-1 -p 9000 ontoportal_kb"
     profiles:
       - fs
+
   virtuoso-ut:
     image: tenforce/virtuoso:virtuoso7.2.5
     platform: linux/amd64
