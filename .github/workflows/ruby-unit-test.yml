@@ -17,7 +17,7 @@ jobs:
         triplestore: [ 'fs', 'ag', 'vo', 'gb' ]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: Install Dependencies
       run: sudo apt-get update && sudo apt-get -y install raptor2-utils
     - name: Set up Ruby
